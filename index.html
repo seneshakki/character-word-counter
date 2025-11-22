@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Character & Word Counter</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 60px;
+      height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 550px;
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 26px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    textarea {
+      width: 100%;
+      height: 180px;
+      resize: none;
+      padding: 14px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    textarea:focus {
+      border-color: #7f5af0;
+      box-shadow: 0 0 0 3px rgba(127, 90, 240, 0.2);
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 18px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .toggle {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Character & Word Counter</h2>
+
+    <textarea id="textInput" placeholder="Metni buraya yaz..."></textarea>
+
+    <div class="toggle">
+      <input type="checkbox" id="nospace" />
+      <label for="nospace">Boşlukları karakter sayımına dahil etme</label>
+    </div>
+
+    <div class="stats">
+      <p>Karakter: <span id="charCount">0</span></p>
+      <p>Kelimeler: <span id="wordCount">0</span></p>
+    </div>
+  </div>
+
+  <script>
+    const textInput = document.getElementById("textInput");
+    const nospace = document.getElementById("nospace");
+    const charCount = document.getElementById("charCount");
+    const wordCount = document.getElementById("wordCount");
+
+    function updateCounter() {
+      let text = textInput.value;
+
+      // karakter sayisi
+      let charTotal = nospace.checked
+        ? text.replace(/\s/g, "").length
+        : text.length;
+
+      charCount.textContent = charTotal;
+
+      // kelime sayisi
+      let words = text.trim().split(/\s+/);
+      wordCount.textContent = text.trim() === "" ? 0 : words.length;
+    }
+
+    textInput.addEventListener("input", updateCounter);
+    nospace.addEventListener("change", updateCounter);
+  </script>
+</body>
+</html>
